@@ -1,13 +1,19 @@
-#PROYECTO MIPELICULA
-##Descripción
-En un mundo alterno al nuestro, el mundo del streaming fracasa y el formato físico sigue imponiéndose en el mundo del cine. ¿Cómo sería alquilar una película física hoy en día? 
-El proyecto consiste en una página web para alquilar películas por tiempo indefinido, contemplando planes y plazos. 
-###Requisitos Funcionales
-Crear Cliente: El usuario crea sesión ingresando datos personales como nombre completo, correo, nombre de usuario y contraseña.
-Iniciar Sesión: El usuario inicia su sesión
-AlquilarPelicula: El cliente selecciona las películas favoritas y las agrega al carrito. Luego ingresa el plan de pago y si desea agregar snacks al pedido. Ingresa sus datos de pago, verifica la compra antes de confirmar. El pago se genera y se registra en el sistema.
-ConsultarCompras: El cliente visualiza las películas que alquiló.
+# Proyecto MiPelícula
 
-###Requisitos no funcionales
-El sistema debe ser capaz de mostrar únicamente las películas que alquilo el usuario
-El sistema debe ser capaz de comunicarse con supabase para almacenar los datos de usuario, pago y películas disponibles.
+## Descripción
+
+En un mundo alterno al nuestro, el streaming fracasa y el formato físico sigue imponiéndose en el cine. ¿Cómo sería alquilar una película física hoy en día?
+
+El proyecto consiste en una página web para alquilar películas físicas, contemplando distintos planes y plazos de alquiler.
+
+## Requisitos Funcionales
+
+- **Crear cliente:** El usuario crea una sesión ingresando datos personales: nombre completo, correo electrónico, nombre de usuario y contraseña.
+- **Iniciar sesión:** El usuario accede a su cuenta con sus credenciales.
+- **Alquilar película:** El cliente selecciona las películas que desea y las agrega al carrito. Luego elige un plan de pago y, opcionalmente, agrega snacks al pedido. Ingresa sus datos de pago, verifica la compra y la confirma. El pago se genera y se registra en el sistema.
+- **Consultar compras:** El cliente visualiza el historial de películas que alquiló.
+
+## Requisitos No Funcionales
+
+- El sistema debe mostrar únicamente las películas alquiladas por el usuario autenticado.
+- El sistema debe integrarse con Supabase para almacenar los datos de usuarios, pagos y películas disponibles.
