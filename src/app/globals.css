@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+  --black:    #0A0A0F;
+  --panel:    #12121A;
+  --card:     #1A1A26;
+  --border:   #2A2A3A;
+  --red:      #E5001A;
+  --red-dim:  #9B0012;
+  --cream:    #F5E6C8;
+  --gray:     #6B6B80;
+  --white:    #FFFFFF;
+  --input-bg: #0F0F18;
+  --error:    #FF4455;
+  --success:  #22C55E;
+
+  --font-display: var(--font-bebas), 'Bebas Neue', sans-serif;
+  --font-body:    var(--font-inter), 'Inter', sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
