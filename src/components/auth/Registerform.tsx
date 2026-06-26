@@ -40,7 +40,7 @@ const validators = {
   correo:    (v: string) => EMAIL_RE.test(v.trim()) ? '' : 'Ingresá un correo válido (usuario@dominio).',
   telefono:  (v: string) => v.replace(/\D/g, '').length >= 8 ? '' : 'El teléfono debe tener al menos 8 dígitos.',
   usuario:   (v: string) => USER_RE.test(v.trim())  ? '' : 'Hasta 20 caracteres, sin espacios.',
-  password:  (v: string) => v.length >= 4 ? '' : 'La contraseña debe tener al menos 4 caracteres.',
+  password:  (v: string) => v.length >= 6 ? '' : 'La contraseña debe tener al menos 6 caracteres.',
   password2: (v: string, pw: string) => v === pw ? '' : 'Las contraseñas no coinciden.',
 }
  
@@ -282,7 +282,7 @@ export default function RegisterForm({ onSwitchToLogin }: Props) {
                 password.touched && password.error  ? styles.inputInvalid : '',
                 password.touched && !password.error ? styles.inputValid   : '',
               ].join(' ')}
-              placeholder="Mínimo 4 caracteres"
+              placeholder="Mínimo 6 caracteres"
               autoComplete="new-password"
               value={password.value}
               onChange={e => setPassword(prev => ({ ...prev, value: e.target.value }))}

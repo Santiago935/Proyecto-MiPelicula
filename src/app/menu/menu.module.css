@@ -1,0 +1,212 @@
+/* ── LAYOUT ── */
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  position: relative;
+}
+
+/* ── GRAIN ── */
+.grain {
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.035;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── FILM STRIP ── */
+.filmstrip {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 28px;
+  background: var(--red);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  z-index: 100;
+}
+.filmstripBottom {
+  top: auto;
+  bottom: 0;
+}
+.filmTrack {
+  display: flex;
+  align-items: center;
+  animation: scrollStrip 14s linear infinite;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.filmTrackReverse {
+  animation-direction: reverse;
+}
+.filmUnit {
+  display: inline-flex;
+  align-items: center;
+}
+.filmHole {
+  display: inline-block;
+  width: 18px; height: 14px;
+  border: 2px solid rgba(0,0,0,0.4);
+  border-radius: 3px;
+  background: rgba(0,0,0,0.35);
+  margin: 0 5px;
+  flex-shrink: 0;
+}
+.filmLabel {
+  font-family: var(--font-display);
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: rgba(0,0,0,0.5);
+  margin: 0 14px;
+  flex-shrink: 0;
+}
+@keyframes scrollStrip {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── HEADER ── */
+.header {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  margin-bottom: 48px;
+}
+.logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px; height: 52px;
+  border: 2px solid var(--red);
+  border-radius: 50%;
+  color: var(--red);
+  margin-bottom: 12px;
+}
+.title {
+  font-family: var(--font-display);
+  font-size: 34px;
+  letter-spacing: 4px;
+  color: var(--cream);
+  line-height: 1;
+}
+.title span { color: var(--red); }
+.subtitle {
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  color: var(--gray);
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+
+/* ── GRID DE CARDS ── */
+.grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 820px;
+}
+
+/* ── CARD ── */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 36px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+.card:hover {
+  border-color: var(--red);
+  box-shadow: 0 0 0 1px rgba(229,0,26,0.3), 0 16px 48px rgba(0,0,0,0.6);
+  transform: translateY(-3px);
+}
+.card:active {
+  transform: translateY(-1px);
+}
+
+.cardIcon {
+  width: 56px; height: 56px;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--red);
+  transition: border-color 0.2s;
+}
+.card:hover .cardIcon {
+  border-color: var(--red);
+}
+
+.cardTitle {
+  font-family: var(--font-display);
+  font-size: 18px;
+  letter-spacing: 2px;
+  color: var(--cream);
+  line-height: 1.2;
+}
+.cardDesc {
+  font-size: 12px;
+  color: var(--gray);
+  line-height: 1.5;
+}
+.cardArrow {
+  color: var(--red);
+  opacity: 0;
+  transition: opacity 0.2s, transform 0.2s;
+  transform: translateX(-4px);
+}
+.card:hover .cardArrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── LOGOUT ── */
+.logoutWrap {
+  position: relative;
+  z-index: 1;
+  margin-top: 40px;
+}
+.logoutBtn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 8px 20px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: var(--gray);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.logoutBtn:hover {
+  color: var(--cream);
+  border-color: var(--gray);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+  .grid {
+    grid-template-columns: 1fr;
+    max-width: 380px;
+  }
+}
+@media (max-width: 900px) and (min-width: 701px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

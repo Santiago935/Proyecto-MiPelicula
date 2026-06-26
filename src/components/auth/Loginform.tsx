@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import styles from './auth.module.css'
 import { useToast, Toast } from './Toast'
@@ -21,6 +22,7 @@ function initField(value = ''): FieldState {
 
 export default function LoginForm({ onSwitchToRegister }: Props) {
   const { toast, showToast } = useToast()
+  const router = useRouter()
 
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
@@ -68,7 +70,7 @@ export default function LoginForm({ onSwitchToRegister }: Props) {
       if (!email.includes('@')) {
         const { data: cuenta, error: cuentaError } = await supabase
           .from('Cuenta')
-          .select('idCliente, Clientes(correo)')
+          .select('idCliente, Cliente(correo)')
           .eq('usuario', email)
           .single()
 
@@ -79,7 +81,7 @@ export default function LoginForm({ onSwitchToRegister }: Props) {
         }
 
         // @ts-expect-error: relación anidada de Supabase
-        email = cuenta.Clientes?.correo ?? ''
+        email = cuenta.Cliente?.correo ?? ''
       }
 
       const { error } = await supabase.auth.signInWithPassword({
@@ -97,7 +99,7 @@ export default function LoginForm({ onSwitchToRegister }: Props) {
 
       setSuccess(true)
       showToast('Sesión iniciada correctamente.', 'success')
-      // TODO: redirect('/') o router.push('/') según la estructura de rutas
+      setTimeout(() => router.push('/menu'), 800)
 
     } catch {
       showToast('Error inesperado. Intentá de nuevo.', 'error')
