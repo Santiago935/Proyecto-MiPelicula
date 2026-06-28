@@ -1,0 +1,230 @@
+/* ── LAYOUT ── */
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 24px 80px;
+  position: relative;
+}
+
+/* ── GRAIN ── */
+.grain {
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.035;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── FILM STRIP ── */
+.filmstrip {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 28px;
+  background: var(--red);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  z-index: 100;
+}
+.filmstripBottom { top: auto; bottom: 0; }
+.filmTrack {
+  display: flex;
+  align-items: center;
+  animation: scrollStrip 14s linear infinite;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.filmTrackReverse { animation-direction: reverse; }
+.filmUnit { display: inline-flex; align-items: center; }
+.filmHole {
+  display: inline-block;
+  width: 18px; height: 14px;
+  border: 2px solid rgba(0,0,0,0.4);
+  border-radius: 3px;
+  background: rgba(0,0,0,0.35);
+  margin: 0 5px;
+  flex-shrink: 0;
+}
+.filmLabel {
+  font-family: var(--font-display);
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: rgba(0,0,0,0.5);
+  margin: 0 14px;
+  flex-shrink: 0;
+}
+@keyframes scrollStrip {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── CONTAINER ── */
+.wrap {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── HEADER ── */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.backBtn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 8px 14px;
+  color: var(--gray);
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  transition: color 0.15s, border-color 0.15s;
+  flex-shrink: 0;
+}
+.backBtn:hover { color: var(--cream); border-color: var(--gray); }
+.pageTitle {
+  font-family: var(--font-display);
+  font-size: 24px;
+  letter-spacing: 3px;
+  color: var(--cream);
+  line-height: 1;
+}
+
+/* ── ALQUILER CARD ── */
+.alquilerCard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 28px 32px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+.alquilerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.alquilerFecha {
+  font-size: 12px;
+  color: var(--gray);
+  letter-spacing: 0.5px;
+}
+.alquilerTotal {
+  font-family: var(--font-display);
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: var(--cream);
+  white-space: nowrap;
+}
+.alquilerEnvio {
+  font-size: 12px;
+  color: var(--gray);
+  margin-bottom: 16px;
+}
+.alquilerEnvio span { color: var(--cream); }
+
+.sectionLabel {
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--gray);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 16px 0;
+}
+.itemList { display: flex; flex-direction: column; }
+.peliculaItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  font-size: 13px;
+  color: var(--cream);
+  border-bottom: 1px solid var(--border);
+}
+.itemList .peliculaItem:last-child { border-bottom: none; }
+.snackItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  font-size: 13px;
+  color: var(--cream);
+  border-bottom: 1px solid var(--border);
+}
+.itemList .snackItem:last-child { border-bottom: none; }
+
+/* ── EMPTY STATE ── */
+.emptyWrap {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  color: var(--gray);
+  text-align: center;
+  padding-top: 60px;
+}
+.emptyTitle {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 3px;
+  color: var(--cream);
+}
+.emptyBtn {
+  background: var(--red);
+  border: none;
+  border-radius: 3px;
+  padding: 12px 28px;
+  font-family: var(--font-display);
+  font-size: 15px;
+  letter-spacing: 3px;
+  color: var(--white);
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.15s;
+}
+.emptyBtn:hover { background: #FF001E; }
+
+/* ── LOADING ── */
+.loadingWrap {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  color: var(--gray);
+  font-size: 13px;
+  padding-top: 80px;
+}
+.loadingSpinner {
+  width: 32px; height: 32px;
+  border: 2px solid var(--border);
+  border-top-color: var(--red);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 500px) {
+  .alquilerCard { padding: 20px 18px; }
+}

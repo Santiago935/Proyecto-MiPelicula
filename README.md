@@ -12,6 +12,7 @@ El proyecto consiste en una página web para alquilar películas físicas, conte
 - **Iniciar sesión:** El usuario accede a su cuenta con sus credenciales.
 - **Alquilar película:** El cliente selecciona las películas que desea y las agrega al carrito. Luego elige un plan de pago y, opcionalmente, agrega snacks al pedido. Ingresa sus datos de pago, verifica la compra y la confirma. El pago se genera y se registra en el sistema.
 - **Consultar compras:** El cliente visualiza el historial de películas que alquiló.
+- **Actualizar perfil**: El usuario puede actualizar los campos y hasta agregar un perfil y direccion predefinidos
 
 ## Requisitos No Funcionales
 
