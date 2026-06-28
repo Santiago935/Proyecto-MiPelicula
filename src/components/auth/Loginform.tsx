@@ -33,11 +33,11 @@ export default function LoginForm({ onSwitchToRegister }: Props) {
 
   // ── Validators ──
   function validateUsuario(val: string) {
-    if (!val.trim()) return 'Ingresá tu usuario o correo.'
+    if (!val.trim()) return 'Ingrese su usuario o correo.'
     return ''
   }
   function validatePassword(val: string) {
-    if (!val) return 'Ingresá tu contraseña.'
+    if (!val) return 'Ingrese su contraseña.'
     return ''
   }
 
@@ -211,7 +211,7 @@ export default function LoginForm({ onSwitchToRegister }: Props) {
       </form>
 
       <p className={styles.linkText}>
-        ¿No tenés cuenta?{' '}
+        ¿No tiene cuenta?{' '}
         <button className={styles.linkBtn} onClick={onSwitchToRegister}>
           Crear sesión
         </button>

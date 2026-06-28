@@ -49,7 +49,7 @@ export default function StepDatos({ direccion, fechaEnvio, fechaDevolucion, onCh
     <>
       <div className={styles.stepTitle}>Datos de entrega</div>
       <div className={styles.stepSubtitle}>
-        Ingresá la dirección y las fechas de tu alquiler.
+        Ingrese la dirección y las fechas de su alquiler.
       </div>
 
       <div className={styles.field}>

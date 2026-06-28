@@ -296,7 +296,7 @@ export default function PerfilPage() {
             </svg>
             Menú
           </button>
-          <h1 className={styles.pageTitle}>Tu Perfil</h1>
+          <h1 className={styles.pageTitle}>Su Perfil</h1>
         </header>
 
         <div className={styles.card}>

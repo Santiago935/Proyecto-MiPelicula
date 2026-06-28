@@ -36,7 +36,7 @@ export default function StepPago({ onConfirmar, onBack, loading }: Props) {
   return (
     <>
       <div className={styles.stepTitle}>Datos de pago</div>
-      <div className={styles.stepSubtitle}>Ingresá los datos de tu tarjeta.</div>
+      <div className={styles.stepSubtitle}>Ingrese los datos de su tarjeta.</div>
 
       <div className={styles.field}>
         <label className={styles.label} htmlFor="pago-titular">Nombre del titular</label>

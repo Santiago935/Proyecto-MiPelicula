@@ -228,7 +228,7 @@ export default function RegisterForm({ onSwitchToLogin }: Props) {
             </svg>
           </div>
           <div className={styles.successTitle}>¡Cuenta creada!</div>
-          <p className={styles.successMsg}>Ya podés iniciar sesión con tus datos.</p>
+          <p className={styles.successMsg}>Ya puede iniciar sesión con sus datos.</p>
           <button className={styles.linkBtn} style={{ marginTop: 16 }} onClick={onSwitchToLogin}>
             Ir al inicio de sesión →
           </button>
@@ -295,7 +295,7 @@ export default function RegisterForm({ onSwitchToLogin }: Props) {
         </div>
  
         <Field id="reg-pass2" label="Confirmar contraseña" type="password"
-          placeholder="Repetí tu contraseña" autoComplete="new-password"
+          placeholder="Repita su contraseña" autoComplete="new-password"
           field={password2} setter={setPassword2}
           validator={(v) => validators.password2(v, password.value)}
           withEye showEye={showPw2} onToggleEye={() => setShowPw2(v => !v)} />
@@ -306,7 +306,7 @@ export default function RegisterForm({ onSwitchToLogin }: Props) {
       </form>
  
       <p className={styles.linkText}>
-        ¿Ya tenés cuenta?{' '}
+        ¿Ya tiene cuenta?{' '}
         <button className={styles.linkBtn} onClick={onSwitchToLogin}>
           Iniciar sesión
         </button>

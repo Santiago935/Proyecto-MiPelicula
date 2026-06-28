@@ -21,9 +21,9 @@ export default function StepPeliculas({ peliculas, selected, onToggle }: Props) 
 
   return (
     <>
-      <div className={styles.stepTitle}>Elegí tu película</div>
+      <div className={styles.stepTitle}>Elija su película</div>
       <div className={styles.stepSubtitle}>
-        Seleccioná las películas que querés alquilar. Podés elegir varias.
+        Seleccione las películas que desea alquilar. Puede elegir varias.
       </div>
       <div className={styles.selectedCount}>
         <span>{selected.length}</span> película{selected.length !== 1 ? 's' : ''} seleccionada{selected.length !== 1 ? 's' : ''}

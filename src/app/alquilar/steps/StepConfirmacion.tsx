@@ -39,7 +39,7 @@ export default function StepConfirmacion({ peliculas, fechaEnvio }: Props) {
       <div className={styles.confirmTitle}>¡Pago confirmado!</div>
 
       <p className={styles.confirmSub}>
-        Tus películas llegarán el{' '}
+        Sus películas llegarán el{' '}
         <strong style={{ color: 'var(--cream)' }}>{fechaStr}</strong>.
       </p>
 

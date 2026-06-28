@@ -113,7 +113,7 @@ function alquilerTemplate(p: EmailPayload) {
 
   return baseTemplate(`
     <h2 style="color:#e8dcc8;font-size:22px;margin:0 0 8px;">¡Hola, ${p.nombre}!</h2>
-    <p style="color:#9aa0b8;font-size:15px;margin:0 0 28px;">Tu compra fue confirmada con éxito.</p>
+    <p style="color:#9aa0b8;font-size:15px;margin:0 0 28px;">Su compra fue confirmada con éxito.</p>
 
     <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
       <tr><td style="padding-bottom:12px;">
@@ -152,11 +152,11 @@ function alquilerTemplate(p: EmailPayload) {
 function bienvenidaTemplate(p: EmailPayload) {
   return baseTemplate(`
     <h2 style="color:#e8dcc8;font-size:22px;margin:0 0 8px;">¡Bienvenido, ${p.nombre}!</h2>
-    <p style="color:#9aa0b8;font-size:15px;margin:0 0 28px;">Tu cuenta fue creada con éxito.</p>
+    <p style="color:#9aa0b8;font-size:15px;margin:0 0 28px;">Su cuenta fue creada con éxito.</p>
 
     <div style="background:#1e2235;border-radius:8px;padding:20px;margin-bottom:24px;border-left:3px solid #cc1122;">
       <p style="color:#ccc;font-size:15px;margin:0;">
-        Ya podés explorar nuestro catálogo y alquilar tus películas favoritas en formato físico.
+        Ya puede explorar nuestro catálogo y alquilar sus películas favoritas en formato físico.
       </p>
     </div>
 
@@ -178,7 +178,7 @@ export async function POST(req: NextRequest) {
   })
 
   const subject = payload.type === 'alquiler'
-    ? '¡Tu alquiler fue confirmado! 🎬'
+    ? '¡Gracias por su compra! 🎬'
     : '¡Bienvenido a MiPelícula! 🎬'
 
   const html = payload.type === 'alquiler'

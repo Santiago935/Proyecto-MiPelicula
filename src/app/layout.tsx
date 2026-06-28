@@ -15,7 +15,7 @@ const bebasNeue = Bebas_Neue({
 
 export const metadata: Metadata = {
   title: 'MiPelícula — Alquiler de cine físico',
-  description: 'En un mundo donde el streaming fracasó, alquilá tus películas favoritas.',
+  description: 'En un mundo donde el streaming fracasó, alquile sus películas favoritas.',
 }
 
 export default function RootLayout({

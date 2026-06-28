@@ -28,7 +28,7 @@ const MENU_ITEMS = [
   {
     key: 'alquilar',
     title: 'Alquilar Película',
-    desc: 'Explorá el catálogo y elegí tu próxima película.',
+    desc: 'Explore el catálogo y elija su próxima película.',
     href: '/alquilar',
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor" width="26" height="26">
@@ -39,7 +39,7 @@ const MENU_ITEMS = [
   {
     key: 'historial',
     title: 'Historial de Alquiler',
-    desc: 'Revisá todas tus películas alquiladas anteriormente.',
+    desc: 'Revise todas sus películas alquiladas anteriormente.',
     href: '/historial',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="26" height="26">
@@ -50,8 +50,8 @@ const MENU_ITEMS = [
   },
   {
     key: 'perfil',
-    title: 'Modificar tu Perfil',
-    desc: 'Editá tu foto, usuario, contraseña y datos personales.',
+    title: 'Modificar su Perfil',
+    desc: 'Edite su foto, usuario, contraseña y datos personales.',
     href: '/perfil',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="26" height="26">
@@ -90,7 +90,7 @@ export default function MenuPage() {
             </svg>
           </div>
           <div className={styles.title}>Mi<span>Película</span></div>
-          <div className={styles.subtitle}>¿Qué querés hacer hoy?</div>
+          <div className={styles.subtitle}>¿Qué desea hacer hoy?</div>
         </header>
 
         <div className={styles.grid}>

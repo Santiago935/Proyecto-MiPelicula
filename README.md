@@ -1,5 +1,6 @@
 # Proyecto MiPelícula
 
+Link a la página desplegada: [https://proyecto-mi-pelicula.vercel.app/auth](https://proyecto-mi-pelicula.vercel.app/auth)
 
 ---
 
@@ -26,7 +27,7 @@ El proyecto consiste en una página web para alquilar películas físicas, conte
 ## Instalación y Uso
 
 ### Instalación
-1) Descarga el proyecto ya sea mediante github o por zip
+1) Descarga el proyecto ya sea mediante GitHub o por zip
 2) Abrir una terminal y acceder a la raíz del proyecto. Allí ejecutar el comando:
 
 ```bash
@@ -40,7 +41,7 @@ NEXT_PUBLIC_SUPABASE_URL=tu_url_de_supabase
 NEXT_PUBLIC_SUPABASE_ANON_KEY=tu_clave_anonima_de_supabase
 ```
 
-Estas son las llaves de tu supabase
+Estas son las claves de tu Supabase
 
 Para el sistema de correo es opcional, funciona el código pero no recibirás ningún correo al alquilar una película:
 
@@ -49,7 +50,7 @@ GMAIL_USER=tu_correo@gmail.com
 GMAIL_APP_PASSWORD=xxxx xxxx xxxx xxxx
 ```
 
-4) En el supabase ejecutar el siguiente código:
+4) En Supabase ejecutar el siguiente código:
 
 ```sql
 -- ══════════════════════════════════════════════
@@ -205,7 +206,7 @@ insert into snack (nombre, precio, imagen_url) values
   ('Papas fritas',    750.00, null);
 ```
 
-5) En supabase crear el bucket público de imágenes de perfil con el nombre "avatares"
+5) En Supabase crear el bucket público de imágenes de perfil con el nombre "avatares"
 
 
 
@@ -229,37 +230,37 @@ npm run dev
 
 El proyecto está programado principalmente en:
 
-**TypeScript**: Por su compatibilidad con Javascript y poder agregar tipado estático.
+**TypeScript**: Por su compatibilidad con JavaScript y poder agregar tipado estático.
 
-**Next.js**: Para navegar entre páginas de forma sencilla sin complicaciones mediante APP router y estructuralizar el proyecto.
+**Next.js**: Para navegar entre páginas de forma sencilla mediante App Router y estructurar el proyecto.
 
-**CSS Modules**: Por los estilos del frontend 
+**CSS Modules**: Por los estilos del frontend.
 
-**Vitest**: Para realizar los test unitarios
+**Vitest**: Para realizar los tests unitarios.
 
 **Gmail SMTP**: Para el sistema de envío de emails. Considero que es el más accesible para fines de este prototipo.
 
-**Supabase**: Como base de datos en la nube como implementación sencilla.
+**Supabase**: Como base de datos en la nube por su implementación sencilla.
 
-También se utilizó **Vercel** para que el proyecto sea accedido de forma no-local siendo el link: [https://proyecto-mi-pelicula.vercel.app/auth](https://proyecto-mi-pelicula.vercel.app/auth)
+También se utilizó **Vercel** para el deploy del proyecto.
 
 ---
 
 ## Uso de IA
 
-Para este proyecto se ha usado dos IAs:
+Para este proyecto se han usado dos IAs. Claude Code (Claude Pro) para el desarrollo, y Gemini como consultor externo.
 
 **Claude Pro**
+A lo largo del proyecto he utilizado una función que pocos conocen que es el modo "Plan". Este modo consiste en pasar un prompt detallando la solución que ya previamente diseñaste y la IA, sin tocar el código, te presenta los cambios necesarios para implementarlo. Una vez que reviso su respuesta y la corrijo de ser necesario, le mando confirmación y la IA ejecuta al pie de la letra el plan. De esta forma siempre mantienes control de lo que se hará antes de que se realice.
+Posteriormente a esto también reviso si todo funciona. Por lo general, según mi experiencia, si el diseño está bien, el código lo estará. Pero ante las dudas, siempre pruebo lo que se escribe.
 
-Se utilizó en la etapa de desarrollo. Una función que pocos conocen es "crear plan" del cual consiste en primero pasar a la IA un prompt especificando la función que se quiere codear, sus requisitos, diseño, límite y que usar. La IA genera un plan del cual te lo muestra especificando que es lo que se necesita y que es lo que hará y como lo hará. Tu revisas ese plan y corriges aquellas cosas que consideras mal o equivocada. Puedes hasta restringir permisos que la IA no tiene porque tocar. 
-Una vez ya definido el plan, la IA lo ejecuta y programa la función requerida. Tras esto revisas el contenido y lo pruebas para implementarlo a tu proyecto.
-Básicamente en eso consistió mi uso de esta IA. Siempre y en todo momento he supervisado lo que crea y controlando lo que va a crear antes de que lo implemente.
-Un ejemplo de esto fue para crear el sistema de alquiler. Pensarlo y detallar el prompt con las cosas que debía realizarse me costó más que desarrollar el código mediante este método. (Lo utilizado se encuentra al final de este README). Una vez con el código hecho, los errores eran mínimos como la fuente de la letra o algún error mínimo de conexión con la base de datos, algo que estaba fuera del alcance de la IA y era necesario mi intervención.
+Un ejemplo de este uso fue el siguiente:
+Una vez que ya diseñé por completo cómo sería el sistema de alquiler de películas, especifiqué la función. El plan que se generó fue directo, teniendo que corregir problemas técnicos como la correcta conexión de Supabase, cosa que superaba el alcance de la IA por la falta de contexto.
+
 
 **Gemini**
 
-Se utilizó Gemini en forma de consultora para que diera un punto de vista sobre la viabilidad del proyecto.
-Por ejemplo para confirmar el alcance del proyecto una vez que ya lo he pensado, o si convenia darle otra vuelta al asunto. Como si fuera un compañero de trabajo.
+Se utilizó Gemini en forma de consultora para determinar si el proyecto tomaba buen rumbo o mal rumbo. Fue más un compañero de trabajo que ayudó a enseñarme tecnologías que tal vez no conocía y eran mejores para el proyecto. Por ejemplo el uso de Gmail SMTP para el desarrollo del sistema de emails.
 
 ---
 
@@ -279,6 +280,7 @@ Para ejecutar los tests unitarios:
 ```bash
 npm test
 ```
+
 ---
 
 ### Requisitos Funcionales
@@ -296,6 +298,8 @@ npm test
 - El sistema debe mostrar únicamente las películas alquiladas por el usuario autenticado.
 - El sistema debe integrarse con Supabase para almacenar los datos de usuarios, pagos y películas disponibles.
 - El sistema debe permitir enviar emails cuando se alquila una película
+
+---
 
 ### Caso de Uso
 

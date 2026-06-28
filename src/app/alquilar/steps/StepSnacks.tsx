@@ -25,7 +25,7 @@ export default function StepSnacks({ snacks, snacksConCantidad, onCambiarCantida
   if (snacks.length === 0) {
     return (
       <>
-        <div className={styles.stepTitle}>Elegí tus snacks</div>
+        <div className={styles.stepTitle}>Elija sus snacks</div>
         <div className={styles.stepSubtitle}>No hay snacks disponibles por el momento.</div>
       </>
     )
@@ -35,7 +35,7 @@ export default function StepSnacks({ snacks, snacksConCantidad, onCambiarCantida
     <>
       <div className={styles.stepTitle}>Elegí tus snacks</div>
       <div className={styles.stepSubtitle}>
-        Este paso es opcional. Podés continuar sin agregar nada.
+        Este paso es opcional. Puede continuar sin agregar nada.
       </div>
       <div className={styles.snackGrid}>
         {snacks.map(s => {
