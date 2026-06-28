@@ -85,6 +85,8 @@ export default function AlquilarPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
   const [clienteId, setClienteId] = useState<number | null>(null)
+  const [userEmail, setUserEmail] = useState('')
+  const [userNombre, setUserNombre] = useState('')
   const [peliculas, setPeliculas] = useState<Pelicula[]>([])
   const [snacks, setSnacks] = useState<Snack[]>([])
 
@@ -109,13 +111,17 @@ export default function AlquilarPage() {
       if (!session) { router.replace('/auth'); return }
 
       const authId = session.user.id
+      setUserEmail(session.user.email ?? '')
       const [clienteRes, peliculasRes, snacksRes] = await Promise.all([
-        supabase.from('Cliente').select('idCliente').eq('auth_id', authId).single(),
+        supabase.from('Cliente').select('idCliente, nombre').eq('auth_id', authId).single(),
         supabase.from('pelicula').select('*'),
         supabase.from('snack').select('*'),
       ])
 
-      if (clienteRes.data) setClienteId(clienteRes.data.idCliente)
+      if (clienteRes.data) {
+        setClienteId(clienteRes.data.idCliente)
+        setUserNombre(clienteRes.data.nombre ?? '')
+      }
       if (peliculasRes.data) setPeliculas(peliculasRes.data)
       if (snacksRes.data) {
         setSnacks(snacksRes.data)
@@ -218,6 +224,26 @@ export default function AlquilarPage() {
         monto: parseFloat(total.toFixed(2)),
       })
       if (pagoError) throw pagoError
+
+      // Email de confirmación — best effort: si falla no interrumpe el flujo
+      try {
+        await fetch('/api/send-email', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type:            'alquiler',
+            to:              userEmail,
+            nombre:          userNombre,
+            peliculas:       selPeliculas.map(p => p.nombre),
+            snacks:          selSnacks.map(s => ({ nombre: s.snack.nombre, cantidad: s.cantidad })),
+            total,
+            fechaEnvio,
+            fechaDevolucion,
+          }),
+        })
+      } catch {
+        // El alquiler ya fue registrado; el email es secundario
+      }
 
       setStep(6)
     } catch (err) {

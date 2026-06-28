@@ -4,7 +4,8 @@ import { useState } from 'react'
 import { supabase } from '@/lib/supabase'
 import styles from './auth.module.css'
 import { useToast, Toast } from './Toast'
- 
+import { authValidators, passwordStrength } from '@/lib/validators'
+
 // ── Tipos ──
 interface FieldState {
   value: string
@@ -28,35 +29,10 @@ interface FieldProps {
   onToggleEye?: () => void
 }
  
-// ── Regex ──
-const NAME_RE  = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{1,20}$/
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-const USER_RE  = /^[^\s]{1,20}$/
- 
-// ── Validators ──
-const validators = {
-  nombre:    (v: string) => NAME_RE.test(v.trim())  ? '' : 'Solo letras, hasta 20 caracteres.',
-  apellido:  (v: string) => NAME_RE.test(v.trim())  ? '' : 'Solo letras, hasta 20 caracteres.',
-  correo:    (v: string) => EMAIL_RE.test(v.trim()) ? '' : 'Ingresá un correo válido (usuario@dominio).',
-  telefono:  (v: string) => v.replace(/\D/g, '').length >= 8 ? '' : 'El teléfono debe tener al menos 8 dígitos.',
-  usuario:   (v: string) => USER_RE.test(v.trim())  ? '' : 'Hasta 20 caracteres, sin espacios.',
-  password:  (v: string) => v.length >= 6 ? '' : 'La contraseña debe tener al menos 6 caracteres.',
-  password2: (v: string, pw: string) => v === pw ? '' : 'Las contraseñas no coinciden.',
-}
+const validators = authValidators
  
 function initField(): FieldState {
   return { value: '', error: '', touched: false }
-}
- 
-function passwordStrength(val: string): { pct: string; color: string } {
-  let score = 0
-  if (val.length >= 4) score++
-  if (val.length >= 8) score++
-  if (/[A-Z]/.test(val) && /[0-9]/.test(val)) score++
-  if (/[^A-Za-z0-9]/.test(val)) score++
-  const pcts   = ['0%', '25%', '50%', '75%', '100%']
-  const colors = ['transparent', '#E5001A', '#FF8C00', '#EAB308', '#22C55E']
-  return { pct: pcts[score], color: colors[score] }
 }
  
 // ── EyeIcon ──
@@ -217,9 +193,24 @@ export default function RegisterForm({ onSwitchToLogin }: Props) {
         return
       }
  
+      // Email de bienvenida — best effort: si falla no interrumpe el registro
+      try {
+        await fetch('/api/send-email', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type:   'bienvenida',
+            to:     correo.value.trim(),
+            nombre: nombre.value.trim(),
+          }),
+        })
+      } catch {
+        // El registro ya fue completado; el email es secundario
+      }
+
       setSuccess(true)
       showToast('¡Cuenta creada con éxito!', 'success')
- 
+
     } catch {
       showToast('Error inesperado. Intentá de nuevo.', 'error')
     } finally {

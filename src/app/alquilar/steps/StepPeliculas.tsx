@@ -53,6 +53,9 @@ export default function StepPeliculas({ peliculas, selected, onToggle }: Props) 
               {p.duracion != null && (
                 <span className={styles.movieOverlayDuracion}>{p.duracion} min</span>
               )}
+              <span className={styles.movieOverlayDuracion} style={{ color: '#E5001A', fontWeight: 700 }}>
+                ARS {new Intl.NumberFormat('es-AR', { minimumFractionDigits: 2 }).format(p.precio)}
+              </span>
               {p.descripcion && (
                 <span className={styles.movieOverlayDesc}>{p.descripcion}</span>
               )}

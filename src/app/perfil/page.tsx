@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
+import { perfilValidators } from '@/lib/validators'
 import styles from './perfil.module.css'
 import { useToast, Toast } from '@/components/auth/Toast'
 
@@ -17,15 +18,7 @@ function initField(value = ''): FieldState {
   return { value, error: '', touched: false }
 }
 
-// ── Regex (mismas que Registerform) ──
-const USER_RE = /^[^\s]{1,20}$/
-
-const validators = {
-  usuario:   (v: string) => v === '' || USER_RE.test(v.trim()) ? '' : 'Hasta 20 caracteres, sin espacios.',
-  telefono:  (v: string) => v === '' || v.replace(/\D/g, '').length >= 8 ? '' : 'El teléfono debe tener al menos 8 dígitos.',
-  direccion: (v: string) => v === '' || v.trim().length <= 40 ? '' : 'Máximo 40 caracteres.',
-  password:  (v: string) => v === '' || v.length >= 6 ? '' : 'La contraseña debe tener al menos 6 caracteres.',
-}
+const validators = perfilValidators
 
 // ── Film Strip ──
 const STRIP_LABELS = ['MIPELÍCULA', 'ALQUILER', 'CINE FÍSICO', 'FORMATO ORIGINAL']
@@ -142,7 +135,7 @@ export default function PerfilPage() {
 
       const { data: cliente, error: clienteError } = await supabase
         .from('Cliente')
-        .select('idCliente, telefono, direccion, foto_perfil')
+        .select('idCliente, telefono, direccion, foto_perfil, Cuenta(usuario)')
         .eq('auth_id', user.id)
         .single()
 
@@ -152,17 +145,12 @@ export default function PerfilPage() {
         return
       }
 
+      const cuenta = Array.isArray(cliente.Cuenta) ? cliente.Cuenta[0] : cliente.Cuenta
+
       setClienteId(cliente.idCliente)
       setFotoUrl(cliente.foto_perfil ?? null)
       setTelefono(initField(String(cliente.telefono ?? '')))
       setDireccion(initField(cliente.direccion ?? ''))
-
-      const { data: cuenta } = await supabase
-        .from('Cuenta')
-        .select('usuario')
-        .eq('idCliente', cliente.idCliente)
-        .single()
-
       setUsuario(initField(cuenta?.usuario ?? ''))
       setDataLoading(false)
     }
@@ -244,7 +232,10 @@ export default function PerfilPage() {
           .eq('idCliente', clienteId)
 
         if (cuentaError) {
-          showToast('Error al actualizar el usuario.', 'error')
+          const msg = cuentaError.message?.toLowerCase().includes('usuario')
+            ? 'Ese nombre de usuario ya está en uso.'
+            : 'Error al actualizar el usuario.'
+          showToast(msg, 'error')
           setLoading(false)
           return
         }

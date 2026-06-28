@@ -15,13 +15,15 @@ export function calcTotal(
   fechaEnvio: string,
   fechaDevolucion: string
 ) {
-  const dias =
-    Math.ceil(
+  const dias = Math.max(
+    1,
+    Math.round(
       (new Date(fechaDevolucion + 'T00:00:00').getTime() -
         new Date(fechaEnvio + 'T00:00:00').getTime()) /
         86400000
-    ) + 1
-  const subtotalPelis = peliculas.reduce((acc, p) => acc + p.precio, 0) * dias
+    )
+  )
+  const subtotalPelis = peliculas.reduce((acc, p) => acc + p.precio * dias, 0)
   const snacksActivos = snacks.filter(s => s.cantidad > 0)
   const subtotalSnacks = snacksActivos.reduce((acc, s) => acc + s.snack.precio * s.cantidad, 0)
   const comision = (subtotalPelis + subtotalSnacks) * 0.05
@@ -51,7 +53,7 @@ export default function StepResumen({ peliculas, snacks, fechaEnvio, fechaDevolu
               </svg>
               {p.nombre}
               <span style={{ color: 'var(--gray)', fontSize: 12 }}>
-                ({fmt(p.precio)}/día × {dias} día{dias !== 1 ? 's' : ''})
+                ({fmt(p.precio)} × {dias} día{dias !== 1 ? 's' : ''})
               </span>
             </span>
             <span>{fmt(p.precio * dias)}</span>

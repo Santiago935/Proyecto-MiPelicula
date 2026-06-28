@@ -9,9 +9,7 @@
 - [Instalación y Uso](#instalación-y-uso)
 - [Tecnologías usadas en el Proyecto](#tecnologías-usadas-en-el-proyecto)
 - [Uso de IA](#uso-de-ia)
-- [Diagrama de Dominio](#diagrama-de-dominio)
-- [Requisitos Funcionales](#requisitos-funcionales)
-- [Requisitos No Funcionales](#requisitos-no-funcionales)
+- [Elementos usados durante el desarrollo del proyecto](#Elementos-usados-durante-el-desarrollo-del-proyecto)
 
 ---
 
@@ -29,7 +27,7 @@ El proyecto consiste en una página web para alquilar películas físicas, conte
 
 ### Instalación
 1) Descarga el proyecto ya sea mediante github o por zip
-2) Abrir una terminal y acceder a la raiz del proyecto. Allí ejecutar el comando:
+2) Abrir una terminal y acceder a la raíz del proyecto. Allí ejecutar el comando:
 
 ```bash
 npm install --legacy-peer-deps
@@ -44,7 +42,14 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=tu_clave_anonima_de_supabase
 
 Estas son las llaves de tu supabase
 
-4) En el supabase ejecutar el siguiente codigo:
+Para el sistema de correo es opcional, funciona el código pero no recibirás ningún correo al alquilar una película:
+
+```
+GMAIL_USER=tu_correo@gmail.com
+GMAIL_APP_PASSWORD=xxxx xxxx xxxx xxxx
+```
+
+4) En el supabase ejecutar el siguiente código:
 
 ```sql
 -- ══════════════════════════════════════════════
@@ -200,7 +205,7 @@ insert into snack (nombre, precio, imagen_url) values
   ('Papas fritas',    750.00, null);
 ```
 
-5) En supabase crear el bucket de imágenes de perfil con el nombre "avatares"
+5) En supabase crear el bucket público de imágenes de perfil con el nombre "avatares"
 
 
 
@@ -208,7 +213,7 @@ insert into snack (nombre, precio, imagen_url) values
 
 ### Uso
 
-1) Abrir una terminal y acceder a la raiz del proyecto. Allí ejecutar el comando:
+1) Abrir una terminal y acceder a la raíz del proyecto. Allí ejecutar el comando:
 
 ```bash
 npm run dev
@@ -222,15 +227,19 @@ npm run dev
 
 ## Tecnologías usadas en el Proyecto
 
-El proyecto esta programado principalmente en:
+El proyecto está programado principalmente en:
 
-**TypeScript**: Para reducir el tiempo de compilación
+**TypeScript**: Por su compatibilidad con Javascript y poder agregar tipado estático.
 
-**Next.js**: Para navegar entre paginas de forma sencilla sin complicaciones.
+**Next.js**: Para navegar entre páginas de forma sencilla sin complicaciones mediante APP router y estructuralizar el proyecto.
 
-**CSS**: Por los estilos del frontend 
+**CSS Modules**: Por los estilos del frontend 
 
-**Supabase**: Como base de datos dado que ya he trabajado con esto por un proyecto parecido a este.
+**Vitest**: Para realizar los test unitarios
+
+**Gmail SMTP**: Para el sistema de envío de emails. Considero que es el más accesible para fines de este prototipo.
+
+**Supabase**: Como base de datos en la nube como implementación sencilla.
 
 También se utilizó **Vercel** para que el proyecto sea accedido de forma no-local siendo el link: [https://proyecto-mi-pelicula.vercel.app/auth](https://proyecto-mi-pelicula.vercel.app/auth)
 
@@ -242,35 +251,96 @@ Para este proyecto se ha usado dos IAs:
 
 **Claude Pro**
 
-Se utilizó en la etapa de desarrollo. Una función que pocos conocen es "crear plan" del cual consiste en primero pasar a la IA un promp especificando la función que se quiere codear, sus requisitos, diseño, limite y que usar. La Ia genera un plan del cual te lo muestra especificando que es lo que se necesita y que es lo que hará y como lo hara. Tu revisas ese plan y corrigues aquellas cosas que consideras mal o equivoca. Puedes hasta restringuir permisos que la IA no tiene porque tocar. 
+Se utilizó en la etapa de desarrollo. Una función que pocos conocen es "crear plan" del cual consiste en primero pasar a la IA un prompt especificando la función que se quiere codear, sus requisitos, diseño, límite y que usar. La IA genera un plan del cual te lo muestra especificando que es lo que se necesita y que es lo que hará y como lo hará. Tu revisas ese plan y corriges aquellas cosas que consideras mal o equivocada. Puedes hasta restringir permisos que la IA no tiene porque tocar. 
 Una vez ya definido el plan, la IA lo ejecuta y programa la función requerida. Tras esto revisas el contenido y lo pruebas para implementarlo a tu proyecto.
-Basicamente en eso consistió mi uso de esta IA. Siempre y en todo momento he supervisado lo que crea y controlando lo que va a crear antes de que lo implemente.
+Básicamente en eso consistió mi uso de esta IA. Siempre y en todo momento he supervisado lo que crea y controlando lo que va a crear antes de que lo implemente.
+Un ejemplo de esto fue para crear el sistema de alquiler. Pensarlo y detallar el prompt con las cosas que debía realizarse me costó más que desarrollar el código mediante este método. (Lo utilizado se encuentra al final de este README). Una vez con el código hecho, los errores eran mínimos como la fuente de la letra o algún error mínimo de conexión con la base de datos, algo que estaba fuera del alcance de la IA y era necesario mi intervención.
 
 **Gemini**
 
 Se utilizó Gemini en forma de consultora para que diera un punto de vista sobre la viabilidad del proyecto.
+Por ejemplo para confirmar el alcance del proyecto una vez que ya lo he pensado, o si convenia darle otra vuelta al asunto. Como si fuera un compañero de trabajo.
 
 ---
 
 
+## Elementos usados durante el desarrollo del proyecto
 
-## Diagrama de Dominio
+### Diagrama de Dominio
 
 ![Diagrama de Dominio](DominioMiPeli.jpg)
 
 ---
 
-## Requisitos Funcionales
+### Tests
+
+Para ejecutar los tests unitarios:
+
+```bash
+npm test
+```
+---
+
+### Requisitos Funcionales
 
 - **Crear cliente:** El usuario crea una sesión ingresando datos personales: nombre completo, correo electrónico, nombre de usuario y contraseña.
 - **Iniciar sesión:** El usuario accede a su cuenta con sus credenciales.
 - **Alquilar película:** El cliente selecciona las películas que desea y las agrega al carrito. Luego elige un plan de pago y, opcionalmente, agrega snacks al pedido. Ingresa sus datos de pago, verifica la compra y la confirma. El pago se genera y se registra en el sistema.
-- **Consultar compras:** El cliente visualiza el historial de películas que alquiló.
-- **Actualizar perfil**: El usuario puede actualizar los campos y hasta agregar un perfil y direccion predefinidos
+- **Consultar Historial:** El cliente visualiza el historial de películas que alquiló.
+- **Actualizar perfil**: El usuario puede actualizar nombre de usuario, teléfono, dirección, contraseña y foto de perfil
 
 ---
 
-## Requisitos No Funcionales
+### Requisitos No Funcionales
 
 - El sistema debe mostrar únicamente las películas alquiladas por el usuario autenticado.
 - El sistema debe integrarse con Supabase para almacenar los datos de usuarios, pagos y películas disponibles.
+- El sistema debe permitir enviar emails cuando se alquila una película
+
+### Caso de Uso
+
+**CrearCliente**
+Flujo Normal:
+0.	El usuario ingresa “Crear sesión”
+1.	El sistema carga el CU
+2.	El usuario ingresa su nombre, apellido, teléfono, email, nombre de usuario y la contraseña. Luego presiona confirmar
+3.	El sistema carga los datos a la base de datos de Cliente en Supabase y finaliza el caso de uso
+[Conectar sistema Supabase]
+
+Flujo Alterno:
+A0: Cancelar
+*.1) El cliente presiona cancelar
+*.2) El sistema termina el caso de uso sin guardar
+
+A1: Campo incompleto
+	2.1 El usuario omite un campo
+	2.2 El sistema muestra un cartel rojo con el campo que debe completar
+A2: Formato no válido
+	2.1 El usuario ingresa un campo con carácter no válido
+	2.2 El sistema muestra un cartel rojo indicando que el campo está mal escrito y que debe contener.
+
+**AlquilarPelicula**
+Flujo Normal:
+0.	El cliente ingresa “Alquilar película”
+1.	El sistema carga el CU mostrando por imagen todas las películas disponibles
+2.	El cliente selecciona las películas que desea alquilar y presiona “confirmar”.
+3.	El sistema consulta la fecha de envío y la cantidad de días que desea poseer las películas
+4.	El cliente selecciona la fecha y la cantidad de días.
+5.	El sistema carga una consulta para agregar snack
+6.	El cliente selecciona, si lo desea, qué snacks y cuántos agregar
+7.	El sistema calcula el total y lo muestra por pantalla
+8.	El cliente presiona “Confirmar”
+9.	El sistema muestra el recibo de la compra y guarda los datos en la base de datos. Termina el caso de uso
+
+Flujo Alterno:
+A0: Cancelar
+*.1) El cliente presiona cancelar
+*.2) El sistema termina el caso de uso sin guardar
+
+A1: Fecha inválida
+4.1 El cliente ingresa fecha inválida
+4.2 El sistema muestra un cartel indicando que la fecha es inválida
+
+A2: Película vacía
+	2.1 El cliente no selecciona ninguna película y presiona “Confirmar”
+	2.2 El sistema indica por cartel que debe seleccionar alguna película 
