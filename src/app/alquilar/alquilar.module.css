@@ -33,7 +33,7 @@
 .filmTrack {
   display: flex;
   align-items: center;
-  animation: scrollStrip 14s linear infinite;
+  animation: scrollStrip 22s linear infinite;
   white-space: nowrap;
   flex-shrink: 0;
 }

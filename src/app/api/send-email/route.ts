@@ -140,7 +140,7 @@ function alquilerTemplate(p: EmailPayload) {
       <tr>
         <td style="padding:14px 20px;">
           <span style="color:#7a8099;font-size:13px;">Total pagado</span><br/>
-          <span style="color:#cc1122;font-size:20px;font-weight:800;">ARS ${p.total?.toFixed(2)}</span>
+          <span style="color:#cc1122;font-size:20px;font-weight:800;">ARS ${p.total != null ? new Intl.NumberFormat('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(p.total) : ''}</span>
         </td>
       </tr>
     </table>
